@@ -38,6 +38,13 @@ Route::group(['prefix' => 'quiz'], function(){
     ]);*/
 });
 
+Route::group(['prefix' => 'game'], function(){
+    Route::get('question/{id}', [
+        'as' => 'home.game',
+        'uses' => 'HomeController@game'
+    ]);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
