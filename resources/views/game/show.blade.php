@@ -6,11 +6,14 @@
         <h2 class="text-center">{{$quiz->title}}</h2>
 
         <div class="row question">
-            @foreach($questions as $question)
+
                 <div class="col-md-12">
                     <h3 class="text-center">
                         {{ $question->title}} |
                     </h3>
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, $questionNb + 1]) }}" role="button">NEXT</a>
                 </div>
                 <div class="col-md-12">
                     <div class="row answer">
@@ -46,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+
         </div>
     </div>
 @endsection

@@ -27,13 +27,26 @@ class HomeController extends Controller
     public function index()
     {
         $quiz = Quiz::orderby('created_at', 'desc')->first();
-        return view('home')->with(compact('quiz'));
+        $question = Question::where('quiz_id', $quiz->id)->orderBy('id', 'asc')->take(1)->get();
+        return view('home')->with(compact('quiz', 'question'));
     }
 
-    public function game($id)
+    public function game($quiz_id, $question_id)
     {
-        $quiz = Quiz::find($id);
-        $questions = Question::where('quiz_id', $id)->orderBy('id', 'asc')->get();
-        return view('game.show')->with(compact('quiz', 'questions'));
+        $quiz = Quiz::find($quiz_id);
+        $questionNb = intval($question_id);
+        $questionTotal = Question::where('quiz_id', $quiz_id)->get();
+        $total = count($questionTotal);
+        if($questionNb == $total){
+            return view('game.end')->with(compact('quiz'));
+        }
+        $question = Question::where('quiz_id', $quiz_id)->get()[$questionNb];
+
+        //$questions = Question::where('quiz_id', $quiz_id)->where('id', $question_id)->orderBy('id', 'asc')->take(1)->get();
+        if($question){
+            return view('game.show')->with(compact('quiz', 'question', 'questionNb'));
+        }
+        else
+            return view('game.end');
     }
 }

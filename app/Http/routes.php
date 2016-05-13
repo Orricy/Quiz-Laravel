@@ -39,7 +39,7 @@ Route::group(['prefix' => 'quiz'], function(){
 });
 
 Route::group(['prefix' => 'game'], function(){
-    Route::get('question/{id}', [
+    Route::get('{quiz_id}/question/{question_id}', [
         'as' => 'home.game',
         'uses' => 'HomeController@game'
     ]);
