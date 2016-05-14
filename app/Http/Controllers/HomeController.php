@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Score;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +34,26 @@ class HomeController extends Controller
         return view('home')->with(compact('quiz', 'question'));
     }
 
+    public function score()
+    {
+        $myUser = User::find(Auth::user()->id);
+        $users = User::select('id', 'name', 'experience')->orderBy('experience', 'desc')->get();
+        $usersNb = count($users);
+        $pos = $usersNb;
+        for($i = 0; $i < $usersNb; $i++){
+            if($myUser->id == $users[$i]->id){
+                $pos = $i + 1;
+            }
+        }
+        return view('game.score')->with(compact('myUser', 'pos', 'users'));
+    }
+
+    public function week()
+    {
+        $scores = Score::orderBy('value', 'desc')->get();
+        return view('game.week')->with(compact('scores'));
+    }
+
     public function noMoreQuestion($quiz_id, $question_id, $score)
     {
         $quiz = Quiz::find($quiz_id);
@@ -41,10 +62,15 @@ class HomeController extends Controller
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
         $total = count($questionTotal);
         if($questionNb == $total){
-            $result = Score::create([
-                'user_id' => Auth::user()->id,
-                'value' => $score,
-            ]);
+            $user = User::find(Auth::user()->id);
+            if($user){
+                $user->experience = $user->experience + $score;
+                $user->save();
+                $result = Score::create([
+                    'user_id' => $user->id,
+                    'value' => $score,
+                ]);
+            }
             return view('game.end')->with(compact('quiz', 'score'));
         }
         else{
@@ -68,15 +94,25 @@ class HomeController extends Controller
 
     public function validation(Request $request, $quiz_id, $question_id)
     {
-        $score = intval($request->score);
-        $questionNb = intval($question_id);
-        $question = Question::where('quiz_id', $quiz_id)->get()[$questionNb-1];
+        $this->validate($request,
+            [
+                'score' => 'required|integer',
+                'answer' => 'required|digits:1|integer'
+            ],
+            [
+                'score.integer' => 'Merci de ne pas modifier votre score',
+                'score.required' => 'Votre score n\'est pas définie',
+                'answer.required' => 'Une réponse est requise',
+                'answer.digits' => 'Votre réponse est incompatible',
+                'answer.integer' => 'Votre réponse est incompatible',
+            ]);
+        $question = Question::where('quiz_id', $quiz_id)->get()[$question_id-1];
         $answer = intval($request->answer);
-        
+
         if($question->right_answer === $answer)
-            $display = $this->game($quiz_id, $questionNb, $score + 10);
+            $display = $this->game($quiz_id, $question_id, $request->score + 10);
         else
-            $display = $this->game($quiz_id, $questionNb, $score);
+            $display = $this->game($quiz_id, $question_id, $request->score);
         return $display;
     }
 }

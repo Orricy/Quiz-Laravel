@@ -43,6 +43,14 @@ Route::group(['prefix' => 'game'], function(){
         'as' => 'home.game',
         'uses' => 'HomeController@game'
     ]);
+    Route::get('top', [
+        'as' => 'home.score',
+        'uses' => 'HomeController@score'
+    ]);
+    Route::get('topweek', [
+        'as' => 'home.week',
+        'uses' => 'HomeController@week'
+    ]);
     Route::post('{quiz_id}/question/{question_id}', [
         'as' => 'home.validation',
         'uses' => 'HomeController@validation'

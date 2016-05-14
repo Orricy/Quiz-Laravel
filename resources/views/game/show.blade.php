@@ -12,8 +12,22 @@
                         {{ $question->title}}
                     </h3>
                 </div>
+                @if($errors)
+                    <div class="col-md-12">
+                        <div class="errors">
+                            @foreach($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <p class="error-log">{{$error}}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
                 <div class="col-md-12">
+                    {{--
                     <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, $next + 1]) }}" role="button">NEXT</a>
+                    --}}
                     {!! Form::open(array('url' => route('home.validation', [$quiz->id, $next + 1]), 'method' => 'POST')) !!}
                     {!! Form::hidden('score', $score) !!}
                     {{ Form::label('first_answer', $question->answer_1, ['class' => 'control-label']) }}
