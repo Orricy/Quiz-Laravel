@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\Score;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,10 +16,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    /*public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth');
-    }*/
+        $this->middleware('auth', ['except' => ['index']]);
+    }
 
     /**
      * Show the application dashboard.
@@ -35,10 +37,14 @@ class HomeController extends Controller
     {
         $quiz = Quiz::find($quiz_id);
         $questionNb = intval($question_id);
-        $score = $score + 10;
+        //$score = $score + 10;
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
         $total = count($questionTotal);
         if($questionNb == $total){
+            $result = Score::create([
+                'user_id' => Auth::user()->id,
+                'value' => $score,
+            ]);
             return view('game.end')->with(compact('quiz', 'score'));
         }
         else{
@@ -63,18 +69,14 @@ class HomeController extends Controller
     public function validation(Request $request, $quiz_id, $question_id)
     {
         $score = intval($request->score);
-        $next = $this->noMoreQuestion($quiz_id, $question_id, $score);
-        if(!is_int($next))
-            return $next;
-        $question = Question::where('quiz_id', $quiz_id)->get()[$next-1];
+        $questionNb = intval($question_id);
+        $question = Question::where('quiz_id', $quiz_id)->get()[$questionNb-1];
         $answer = intval($request->answer);
-
         
-        //var_dump([$score]);
         if($question->right_answer === $answer)
-            $display = $this->game($quiz_id, $next, $score + 10);
+            $display = $this->game($quiz_id, $questionNb, $score + 10);
         else
-            $display = $this->game($quiz_id, $next);
+            $display = $this->game($quiz_id, $questionNb, $score);
         return $display;
     }
 }
