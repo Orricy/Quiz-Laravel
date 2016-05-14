@@ -14,6 +14,8 @@ Laravel is accessible, yet powerful, providing tools needed for large, robust ap
 
 [http://laravel-tricks.com/tricks/use-sass-instead-of-less-laravel-5]
 
+At root in terminal start 'gulp watch'
+
 ## Official Documentation
 
 Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).

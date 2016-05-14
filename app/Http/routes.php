@@ -43,6 +43,10 @@ Route::group(['prefix' => 'game'], function(){
         'as' => 'home.game',
         'uses' => 'HomeController@game'
     ]);
+    Route::post('{quiz_id}/question/{question_id}', [
+        'as' => 'home.validation',
+        'uses' => 'HomeController@validation'
+    ]);
 });
 
 Route::get('/', function () {

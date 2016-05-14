@@ -31,22 +31,50 @@ class HomeController extends Controller
         return view('home')->with(compact('quiz', 'question'));
     }
 
-    public function game($quiz_id, $question_id)
+    public function noMoreQuestion($quiz_id, $question_id, $score)
     {
         $quiz = Quiz::find($quiz_id);
         $questionNb = intval($question_id);
+        $score = $score + 10;
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
         $total = count($questionTotal);
         if($questionNb == $total){
-            return view('game.end')->with(compact('quiz'));
+            return view('game.end')->with(compact('quiz', 'score'));
         }
-        $question = Question::where('quiz_id', $quiz_id)->get()[$questionNb];
+        else{
+            return $questionNb;
+        }
+    }
 
-        //$questions = Question::where('quiz_id', $quiz_id)->where('id', $question_id)->orderBy('id', 'asc')->take(1)->get();
+    public function game($quiz_id, $question_id, $score = 0)
+    {
+        $quiz = Quiz::find($quiz_id);
+        $next = $this->noMoreQuestion($quiz_id, $question_id, $score);
+        if(!is_int($next))
+            return $next;
+        $question = Question::where('quiz_id', $quiz_id)->get()[$next];
         if($question){
-            return view('game.show')->with(compact('quiz', 'question', 'questionNb'));
+            return view('game.show')->with(compact('quiz', 'question', 'next', 'score'));
         }
         else
-            return view('game.end');
+            return view('home')->with(compact('quiz', 'question'));
+    }
+
+    public function validation(Request $request, $quiz_id, $question_id)
+    {
+        $score = intval($request->score);
+        $next = $this->noMoreQuestion($quiz_id, $question_id, $score);
+        if(!is_int($next))
+            return $next;
+        $question = Question::where('quiz_id', $quiz_id)->get()[$next-1];
+        $answer = intval($request->answer);
+
+        
+        //var_dump([$score]);
+        if($question->right_answer === $answer)
+            $display = $this->game($quiz_id, $next, $score + 10);
+        else
+            $display = $this->game($quiz_id, $next);
+        return $display;
     }
 }
