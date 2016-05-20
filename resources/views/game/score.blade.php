@@ -3,7 +3,9 @@
 @section('content')
     <div class="panel-heading">Dashboard</div>
     <div class="panel-body">
-        <h2 class="text-center">{{ $pos }} | {{$myUser->name}} | {{ $myUser->experience }}</h2>
+        @if(isset($pos) || isset($myUser))
+            <h2 class="text-center">{{ $pos }} | {{$myUser->name}} | {{ $myUser->experience }}</h2>
+        @endif
         <div class="row">
             <div class="col-md-12">
                 @foreach($users as $user)

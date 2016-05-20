@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Score;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index', 'score', 'week']]);
     }
 
     /**
@@ -36,21 +37,26 @@ class HomeController extends Controller
 
     public function score()
     {
-        $myUser = User::find(Auth::user()->id);
         $users = User::select('id', 'name', 'experience')->orderBy('experience', 'desc')->get();
-        $usersNb = count($users);
-        $pos = $usersNb;
-        for($i = 0; $i < $usersNb; $i++){
-            if($myUser->id == $users[$i]->id){
-                $pos = $i + 1;
+        if(isset(Auth::user()->id)){
+            $myUser = User::find(Auth::user()->id);
+            $usersNb = count($users);
+            $pos = $usersNb;
+            for($i = 0; $i < $usersNb; $i++){
+                if($myUser->id == $users[$i]->id){
+                    $pos = $i + 1;
+                }
             }
+            return view('game.score')->with(compact('myUser', 'pos', 'users'));
         }
-        return view('game.score')->with(compact('myUser', 'pos', 'users'));
+        else{
+            return view('game.score')->with(compact('users'));
+        }
     }
 
     public function week()
     {
-        $scores = Score::orderBy('value', 'desc')->get();
+        $scores = Score::where('created_at', '>=', Carbon::now()->startOfWeek())->orderBy('value', 'desc')->get();
         return view('game.week')->with(compact('scores'));
     }
 
