@@ -1,6 +1,7 @@
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 body {
-  font-family: 'Lato';
+  /*font-family: 'Lato';*/
+  font-family: Arial;
   background-color: #eee;
 }
 .panel{
@@ -121,6 +122,16 @@ select{
     background-color: #0b97c4;
     color: white;
   }
+  #user-level{
+    margin-top: 15%;
+    font-size: 1.4em;
+    font-weight: 300;
+  }
+  #user-points{
+    margin-top: 5%;
+    font-size: 1.7em;
+    font-weight: 300;
+  }
   #user-exp{
     margin-top: 10%;
     font-size: 3em;
@@ -130,6 +141,11 @@ select{
     display: block;
     font-style: italic;
     font-size: 1em;
+  }
+  #trophies{
+    .col-md-4{
+      padding: 0 3%;
+    }
   }
   #points-mention{
     display: block;

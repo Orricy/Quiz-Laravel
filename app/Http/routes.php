@@ -56,7 +56,6 @@ Route::group(['prefix' => 'game'], function(){
         'uses' => 'HomeController@validation'
     ]);
 });
-
 /*Route::get('/', function () {
     return view('welcome');
 });*/

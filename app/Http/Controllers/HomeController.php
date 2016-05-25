@@ -69,14 +69,25 @@ class HomeController extends Controller
         if($questionNb == $total){
             $user = User::find(Auth::user()->id);
             if($user){
-                $user->experience = $user->experience + $score;
+                $user->experience = $user->experience + $score/* + 200*/;
                 $user->save();
-                $result = Score::create([
+                $levelRequirement = [0, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
+                for($i = 0; $i < count($levelRequirement); $i++){
+                    if($user->experience >= $levelRequirement[$i] && $user->experience < $levelRequirement[$i+1]){
+                        $exp = ($user->experience / $levelRequirement[$i+1] * 100);
+                        $level = [
+                            'lvl' => $i+1,
+                            'exp' => $exp
+                        ];
+                    }
+                }
+
+                /*$result = Score::create([
                     'user_id' => $user->id,
                     'value' => $score,
-                ]);
+                ]);*/
             }
-            return view('game.end')->with(compact('quiz', 'score', 'total', 'user'));
+            return view('game.end')->with(compact('quiz', 'score', 'total', 'user', 'level'));
         }
         else{
             return $questionNb;

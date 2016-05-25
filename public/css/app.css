@@ -1,5 +1,6 @@
 body {
-  font-family: 'Lato';
+  /*font-family: 'Lato';*/
+  font-family: Arial;
   background-color: #eee; }
 
 .panel {
@@ -106,6 +107,14 @@ select {
     font-size: 2em;
     background-color: #0b97c4;
     color: white; }
+  #user #user-level, #user-score #user-level {
+    margin-top: 15%;
+    font-size: 1.4em;
+    font-weight: 300; }
+  #user #user-points, #user-score #user-points {
+    margin-top: 5%;
+    font-size: 1.7em;
+    font-weight: 300; }
   #user #user-exp, #user-score #user-exp {
     margin-top: 10%;
     font-size: 3em;
@@ -114,6 +123,8 @@ select {
     display: block;
     font-style: italic;
     font-size: 1em; }
+  #user #trophies .col-md-4, #user-score #trophies .col-md-4 {
+    padding: 0 3%; }
   #user #points-mention, #user-score #points-mention {
     display: block;
     font-style: italic; }
