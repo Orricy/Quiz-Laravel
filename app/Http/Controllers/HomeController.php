@@ -91,8 +91,10 @@ class HomeController extends Controller
         if(!is_int($next))
             return $next;
         $question = Question::where('quiz_id', $quiz_id)->get()[$next];
+        $questionTotal = Question::where('quiz_id', $quiz_id)->get();
+        $total = count($questionTotal);
         if($question){
-            return view('game.show')->with(compact('quiz', 'question', 'next', 'score'));
+            return view('game.show')->with(compact('quiz', 'question', 'next', 'score', 'total'));
         }
         else
             return view('home')->with(compact('quiz', 'question'));

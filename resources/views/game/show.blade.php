@@ -3,20 +3,33 @@
 @section('content')
     <div class="panel-body">
         <h2 class="text-center">{{$quiz->title}}</h2>
-        <div class="col-md-3">
+        <div id="score" class="col-md-3">
             <div class="col-md-12">
                 Score
             </div>
-            <div>
-
+            <div class="col-md-12">
+                {{ $score }}
             </div>
         </div>
-        {{ $score }}
+        <div class="col-md-9">
+            @for($i = 0; $i < $total; $i++)
+                @if($i==$next)
+                    <div id="on-question" class="question_number">
+                        {{ $i+1 }}
+                    </div>
+                @else
+                    <div class="question_number">
+                        {{ $i+1 }}
+                    </div>
+                @endif
+            @endfor
+        </div>
+
         <div class="row question">
 
                 <div class="col-md-12">
                     <h3 class="text-center">
-                        {{ $question->title}}
+                        {{ $question->title }}
                     </h3>
                 </div>
                 @if($errors)
