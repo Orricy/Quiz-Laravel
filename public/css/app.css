@@ -1,5 +1,11 @@
 body {
-  font-family: 'Lato'; }
+  font-family: 'Lato';
+  background-color: #eee; }
+
+.panel {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent; }
 
 input {
   margin-bottom: 1%; }
@@ -9,6 +15,12 @@ textarea {
 
 select {
   margin-bottom: 1%; }
+
+.delete-article-btn {
+  display: inline-block; }
+
+.delete-question {
+  display: inline-block; }
 
 #score {
   color: #222;
@@ -59,7 +71,7 @@ select {
     font-size: 4em;
     font-weight: 300; }
   .question-content .question #answer-form {
-    margin-bottom: 4%; }
+    margin-bottom: 2%; }
     .question-content .question #answer-form .answer-row {
       margin-top: 3%; }
     .question-content .question #answer-form input[type=radio] {
@@ -76,10 +88,34 @@ select {
       text-align: center;
       transition: all .5s; }
     .question-content .question #answer-form input[type=radio]:checked + label {
-      box-shadow: 20px 20px; }
+      box-shadow: 10px 10px; }
     .question-content .question #answer-form input[type=radio]:not(:checked) + label {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); }
   .question-content .question .answer {
+    display: none;
     margin-bottom: 1%; }
+
+#user, #user-score {
+  padding-bottom: 3%;
+  border-top: 5px solid black;
+  background-color: white;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); }
+  #user #user-name, #user-score #user-name {
+    display: inline-block;
+    padding: 0.2% 4%;
+    font-size: 2em;
+    background-color: #0b97c4;
+    color: white; }
+  #user #user-exp, #user-score #user-exp {
+    margin-top: 10%;
+    font-size: 3em;
+    font-weight: 300; }
+  #user #user-exp + small, #user-score #user-exp + small {
+    display: block;
+    font-style: italic;
+    font-size: 1em; }
+  #user #points-mention, #user-score #points-mention {
+    display: block;
+    font-style: italic; }
 
 /*# sourceMappingURL=app.css.map */

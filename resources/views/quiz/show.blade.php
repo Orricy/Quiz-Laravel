@@ -4,10 +4,14 @@
     <div class="panel-heading">Dashboard</div>
     <div class="panel-body">
         <h2 class="text-center">{{$quiz->title}}</h2>
-        <a href="{{ route('quiz.edit', $quiz->id) }}">Editer</a>
-        {{ Form::model($quiz, array('route' => array('quiz.destroy', $quiz->id), 'method' => 'DELETE',)) }}
-        {!! Form::submit('×', array('class' => '')) !!}
-        {{ Form::close() }}
+        <div class="col-md-6">
+            <a href="{{ route('quiz.edit', $quiz->id) }}" class="btn btn-block btn-lg btn-success">Editer</a>
+        </div>
+        <div class="col-md-6">
+            {{ Form::model($quiz, array('route' => array('quiz.destroy', $quiz->id), 'method' => 'DELETE',)) }}
+            {!! Form::submit('×', array('class' => 'btn btn-block btn-lg btn-danger')) !!}
+            {{ Form::close() }}
+        </div>
         <div class="row">
             <div class="col-md-12">
                 @if($errors)
@@ -37,9 +41,11 @@
                     <h3 class="text-center">
                         {{ $question->title}} |
                         <a href="{{ route('quiz.editQuestion', $question->id) }}">Editer</a>
-                        {{ Form::model($question, array('route' => array('quiz.destroyQuestion', $question->id), 'method' => 'DELETE',)) }}
-                        {!! Form::submit('×', array('class' => '')) !!}
-                        {{ Form::close() }}
+                        <span class="delete-question">
+                            {{ Form::model($question, array('route' => array('quiz.destroyQuestion', $question->id), 'method' => 'DELETE',)) }}
+                            {!! Form::submit('×', array('class' => '')) !!}
+                            {{ Form::close() }}
+                        </span>
                     </h3>
                 </div>
                 <div class="col-md-12">

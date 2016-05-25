@@ -64,7 +64,6 @@ class HomeController extends Controller
     {
         $quiz = Quiz::find($quiz_id);
         $questionNb = intval($question_id);
-        //$score = $score + 10;
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
         $total = count($questionTotal);
         if($questionNb == $total){
@@ -77,7 +76,7 @@ class HomeController extends Controller
                     'value' => $score,
                 ]);
             }
-            return view('game.end')->with(compact('quiz', 'score'));
+            return view('game.end')->with(compact('quiz', 'score', 'total', 'user'));
         }
         else{
             return $questionNb;
