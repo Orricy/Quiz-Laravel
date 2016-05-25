@@ -26,7 +26,7 @@
                 {!! Form::textarea('answer_2', null, array('class' => 'form-control', 'rows' => 2, 'placeholder' => 'La réponse 2')) !!}
                 {!! Form::textarea('answer_3', null, array('class' => 'form-control', 'rows' => 2, 'placeholder' => 'La réponse 3')) !!}
                 {!! Form::textarea('answer_4', null, array('class' => 'form-control', 'rows' => 2, 'placeholder' => 'La réponse 4')) !!}
-                {!! Form::selectRange('right_answer', 1, 4) !!}
+                {!! Form::selectRange('right_answer', 1, 4, null, array('class' => 'form-control')) !!}
                 {!! Form::submit('Envoyer', array('class' => 'form-control btn btn-primary')) !!}
                 {!! Form::close() !!}
             </div>

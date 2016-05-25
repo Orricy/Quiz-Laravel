@@ -20,7 +20,7 @@
                     </button>
                 </a>
                 <span class="delete-article-btn">
-            {{ Form::model($quiz, array('route' => array('articles.destroy', $quiz->id), 'method' => 'DELETE',)) }}
+            {{ Form::model($quiz, array('route' => array('quiz.destroy', $quiz->id), 'method' => 'DELETE',)) }}
                     {!! Form::submit('Supprimer', array('class' => 'btn btn-danger')) !!}
                     {{ Form::close() }}
             </span>

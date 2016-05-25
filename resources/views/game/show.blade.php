@@ -1,9 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="panel-heading">Dashboard</div>
     <div class="panel-body">
         <h2 class="text-center">{{$quiz->title}}</h2>
+        <div class="col-md-3">
+            <div class="col-md-12">
+                Score
+            </div>
+            <div>
+
+            </div>
+        </div>
         {{ $score }}
         <div class="row question">
 
