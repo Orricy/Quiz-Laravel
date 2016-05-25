@@ -12,7 +12,7 @@
 <div class="panel-body">
     <div class="col-md-2 col-md-offset-5">
         @if($quiz)
-            <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, 0]) }}" role="button">Link</a>
+            <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, 0]) }}" role="button">Start</a>
         @else
             <p class="text-center">Il n'y a aucun quiz pour l'instant</p>
         @endif

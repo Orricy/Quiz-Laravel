@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="panel-heading">Dashboard</div>
+    <div class="panel-heading">Les quizz</div>
 
     <div class="panel-body">
         Liste des Quiz

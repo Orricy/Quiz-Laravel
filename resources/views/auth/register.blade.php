@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="panel-heading">Register</div>
+<div class="panel-heading">Inscription</div>
 <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
         {!! csrf_field() !!}

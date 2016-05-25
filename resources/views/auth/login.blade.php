@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="panel-heading">Login</div>
+<div class="panel-heading">Connexion</div>
 <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
         {!! csrf_field() !!}
