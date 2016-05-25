@@ -12,20 +12,43 @@ select{
   margin-bottom: 1%;
 }
 #score{
+  color: #222;
   text-align: center;
   font-size: 2em;
   font-weight: 300;
 }
 #on-question{
-  font-size: 1.5em;
+  top: 0.4em;
 }
 .question_number{
+  position: relative;
   display: inline-block;
-  padding: 1em;
   text-align: center;
   color: white;
-  background-color: darkgray;
-  border-radius: 50%;
+  z-index: 5;
+  .big-number{
+    width: 1.5em;
+    font-size: 2em;
+    background-color: darkblue;
+    border-radius: 50%;
+  }
+  .small-number{
+    width: 1.5em;
+    font-size: 1.2em;
+    background-color: darkgray;
+    border-radius: 50%;
+  }
+}
+.line-question{
+  position: relative;
+  display: inline-block;
+  top: -0.1em;
+  margin-left: -5px;
+  margin-right: -5px;
+  width: 8%;
+  height: 10px;
+  background-color: gray;
+  z-index: 4;
 }
 .fa-btn {
   margin-right: 6px;
@@ -33,8 +56,43 @@ select{
 .errors{
   margin: 1% 0;
 }
-.question{
-  .answer{
-    margin-bottom: 1%;
+.question-content{
+  background-color: #eee;
+  .question{
+    #question-title{
+      font-size: 4em;
+      font-weight: 300;
+    }
+    #answer-form{
+      margin-bottom: 4%;
+      .answer-row{
+        margin-top: 3%;
+      }
+      input[type=radio]{
+        display: none;
+      }
+      input[type=submit]{
+        margin-top: 4%;
+      }
+      label{
+        width: 60%;
+        margin-left: 20%;
+        padding: 5% 5%;
+        font-size: 1.7em;
+        font-weight: 300;
+        background-color: white;
+        text-align: center;
+        transition: all .5s;
+      }
+      input[type=radio]:checked + label{
+        box-shadow: 20px 20px;
+      }
+      input[type=radio]:not(:checked) + label{
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+      }
+    }
+    .answer{
+      margin-bottom: 1%;
+    }
   }
 }

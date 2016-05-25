@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="panel-body">
+    <div class="panel-body question-content">
         <h2 class="text-center">{{$quiz->title}}</h2>
         <div id="score" class="col-md-3">
             <div class="col-md-12">
@@ -15,20 +15,29 @@
             @for($i = 0; $i < $total; $i++)
                 @if($i==$next)
                     <div id="on-question" class="question_number">
-                        {{ $i+1 }}
+                        <div class="big-number">
+                            {{ $i+1 }}
+                        </div>
                     </div>
+                    @unless($i+1 == $total)
+                        <div class="line-question"></div>
+                    @endunless
                 @else
                     <div class="question_number">
-                        {{ $i+1 }}
+                        <div class="small-number">
+                            {{ $i+1 }}
+                        </div>
                     </div>
+                    @unless($i+1 == $total)
+                        <div class="line-question"></div>
+                    @endunless
                 @endif
             @endfor
         </div>
 
         <div class="row question">
-
                 <div class="col-md-12">
-                    <h3 class="text-center">
+                    <h3 id="question-title" class="text-center">
                         {{ $question->title }}
                     </h3>
                 </div>
@@ -44,20 +53,32 @@
                         </div>
                     </div>
                 @endif
-                <div class="col-md-12">
+                <div id="answer-form" class="col-md-12">
                     {{--
                     <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, $next + 1]) }}" role="button">NEXT</a>
                     --}}
                     {!! Form::open(array('url' => route('home.validation', [$quiz->id, $next + 1]), 'method' => 'POST')) !!}
                     {!! Form::hidden('score', $score) !!}
-                    {{ Form::label('first_answer', $question->answer_1, ['class' => 'control-label']) }}
-                    {!! Form::radio('answer', 1, null, array('id' => 'first_answer',)) !!}
-                    {{ Form::label('second_answer', $question->answer_2, ['class' => 'control-label']) }}
-                    {!! Form::radio('answer', 2, null, array('id' => 'second_answer',)) !!}
-                    {{ Form::label('third_answer', $question->answer_3, ['class' => 'control-label']) }}
-                    {!! Form::radio('answer', 3, null, array('id' => 'third_answer',)) !!}
-                    {{ Form::label('fourth_answer', $question->answer_4, ['class' => 'control-label']) }}
-                    {!! Form::radio('answer', 4, null, array('id' => 'fourth_answer',)) !!}
+                    <div class="row answer-row">
+                        <div class="col-md-6">
+                            {!! Form::radio('answer', 1, null, array('id' => 'first_answer',)) !!}
+                            {{ Form::label('first_answer', $question->answer_1, ['class' => 'control-label']) }}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Form::radio('answer', 2, null, array('id' => 'second_answer',)) !!}
+                            {{ Form::label('second_answer', $question->answer_2, ['class' => 'control-label']) }}
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                        <div class="col-md-6">
+                            {!! Form::radio('answer', 3, null, array('id' => 'third_answer',)) !!}
+                            {{ Form::label('third_answer', $question->answer_3, ['class' => 'control-label']) }}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Form::radio('answer', 4, null, array('id' => 'fourth_answer',)) !!}
+                            {{ Form::label('fourth_answer', $question->answer_4, ['class' => 'control-label']) }}
+                        </div>
+                    </div>
                     {!! Form::submit('Envoyer', array('class' => 'form-control btn btn-primary')) !!}
                     {!! Form::close() !!}
                 </div>
