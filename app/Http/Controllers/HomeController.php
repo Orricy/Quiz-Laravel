@@ -69,7 +69,7 @@ class HomeController extends Controller
         if($questionNb == $total){
             $user = User::find(Auth::user()->id);
             if($user){
-                $user->experience = $user->experience + $score/* + 200*/;
+                $user->experience = $user->experience + $score + 200;
                 $user->save();
                 $levelRequirement = [0, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
                 for($i = 0; $i < count($levelRequirement); $i++){
@@ -81,11 +81,10 @@ class HomeController extends Controller
                         ];
                     }
                 }
-
-                /*$result = Score::create([
+                $result = Score::create([
                     'user_id' => $user->id,
                     'value' => $score,
-                ]);*/
+                ]);
             }
             return view('game.end')->with(compact('quiz', 'score', 'total', 'user', 'level'));
         }
@@ -115,12 +114,11 @@ class HomeController extends Controller
         $this->validate($request,
             [
                 'score' => 'required|integer',
-                'answer' => 'required|digits:1|integer'
+                'answer' => 'digits:1|integer'
             ],
             [
                 'score.integer' => 'Merci de ne pas modifier votre score',
                 'score.required' => 'Votre score n\'est pas définie',
-                'answer.required' => 'Une réponse est requise',
                 'answer.digits' => 'Votre réponse est incompatible',
                 'answer.integer' => 'Votre réponse est incompatible',
             ]);

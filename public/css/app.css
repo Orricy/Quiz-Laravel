@@ -1,6 +1,6 @@
 body {
-  /*font-family: 'Lato';*/
   font-family: Arial;
+  font-family: 'Lato';
   background-color: #eee; }
 
 .panel {
@@ -78,6 +78,7 @@ select {
     .question-content .question #answer-form input[type=radio] {
       display: none; }
     .question-content .question #answer-form input[type=submit] {
+      display: none;
       margin-top: 4%; }
     .question-content .question #answer-form label {
       width: 60%;

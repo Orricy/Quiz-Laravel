@@ -57,7 +57,7 @@
                     {{--
                     <a class="btn btn-block btn-primary" href="{{ route('home.game', [$quiz->id, $next + 1]) }}" role="button">NEXT</a>
                     --}}
-                    {!! Form::open(array('url' => route('home.validation', [$quiz->id, $next + 1]), 'method' => 'POST')) !!}
+                    {!! Form::open(array('url' => route('home.validation', [$quiz->id, $next + 1]), 'id' => 'userAnswer', 'method' => 'POST')) !!}
                     {!! Form::hidden('score', $score) !!}
                     <div class="row answer-row">
                         <div class="col-md-6">
@@ -68,6 +68,9 @@
                             {!! Form::radio('answer', 2, null, array('id' => 'second_answer',)) !!}
                             {{ Form::label('second_answer', $question->answer_2, ['class' => 'control-label']) }}
                         </div>
+                    </div>
+                    <div class="row">
+                        <h3 id="timer" class="text-center"></h3>
                     </div>
                     <div class="row answer-row">
                         <div class="col-md-6">
@@ -119,4 +122,8 @@
 
         </div>
     </div>
+@endsection
+
+@section('timer')
+    <script src="{{ asset('js/timer.js') }}"></script>
 @endsection
