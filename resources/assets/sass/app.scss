@@ -80,7 +80,23 @@ select{
     #answer-form{
       margin-bottom: 2%;
       .answer-row{
-        margin-top: 3%;
+        margin-top: 1%;
+      }
+      svg{
+        padding-right: 3px;
+        padding-top: 5px;
+        background-image: url("../img/chrono.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        /*padding: 1%;
+        #timer{
+          display: inline-block;
+          vertical-align: middle;
+        }*/
+        .timer{
+          font-weight: bold;
+        }
       }
       input[type=radio]{
         display: none;

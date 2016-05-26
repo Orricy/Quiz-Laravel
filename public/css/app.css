@@ -74,7 +74,21 @@ select {
   .question-content .question #answer-form {
     margin-bottom: 2%; }
     .question-content .question #answer-form .answer-row {
-      margin-top: 3%; }
+      margin-top: 1%; }
+    .question-content .question #answer-form svg {
+      padding-right: 3px;
+      padding-top: 5px;
+      background-image: url("../img/chrono.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      /*padding: 1%;
+        #timer{
+          display: inline-block;
+          vertical-align: middle;
+        }*/ }
+      .question-content .question #answer-form svg .timer {
+        font-weight: bold; }
     .question-content .question #answer-form input[type=radio] {
       display: none; }
     .question-content .question #answer-form input[type=submit] {

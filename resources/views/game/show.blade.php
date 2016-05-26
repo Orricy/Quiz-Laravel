@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('circful')
+    <link href="{{ asset('css/jquery.circliful.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
     <div class="panel-body question-content">
         <h2 class="text-center">{{$quiz->title}}</h2>
@@ -70,7 +74,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h3 id="timer" class="text-center"></h3>
+                        <div id="timer-border" class="center-block text-center">
+                            <div class="col-md-2 col-md-offset-5">
+                                <div id="test-circle">
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="row answer-row">
                         <div class="col-md-6">
@@ -126,4 +136,5 @@
 
 @section('timer')
     <script src="{{ asset('js/timer.js') }}"></script>
+    <script src="{{ asset('js/jquery.circliful.js') }}"></script>
 @endsection
