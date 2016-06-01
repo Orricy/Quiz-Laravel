@@ -5,6 +5,7 @@
         <div id="user" class="col-md-4">
             <div class="col-md-12">
                 <h2 id="user-name" class="text-center">{{ $user->name }}</h2>
+                <h4 class="text-center">Quiz : {{ $quiz->title }}</h4>
             </div>
             <div class="col-md-12">
                 <p id="user-level" class="text-center">Niveau {{ $level['lvl'] }}</p>
@@ -46,19 +47,28 @@
                         <img src="{{ asset('img/troph_failure.png') }}" class="img-responsive" alt="loser">
                     </div>
                 @endif
-                @if(true)
+                @if($time < 60)
                     <div class="col-md-4">
-                        <img src="{{ asset('img/troph_time.png') }}"" class="img-responsive" alt="quick enough (less than 1 minute)">
+                        <img src="{{ asset('img/troph_time.png') }}" class="img-responsive" alt="quick enough (less than 1 minute)">
                     </div>
                 @endif
             </div>
-            {{ $quiz->title }}
         </div>
         <div class="col-md-8">
             <div id="user-score" class="col-md-12">
                 <div class="col-md-12">
                     <h4 id="user-exp" class="text-center">{{ $user->experience }} points</h4>
                     <small class="text-center">de score total</small>
+                </div>
+                <div class="col-md-12">
+                    <?php $i=0; ?>
+                    @foreach($users as $topUser)
+                        <div class="col-md-6">
+                            <p>{!! $pos[$i] !!} - {{ $topUser->name }}</p>
+                            <p>{{ $topUser->experience }}</p>
+                        </div>
+                            <?php $i++; ?>
+                    @endforeach
                 </div>
             </div>
         </div>

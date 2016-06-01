@@ -60,17 +60,19 @@ class HomeController extends Controller
         return view('game.week')->with(compact('scores'));
     }
 
-    public function noMoreQuestion($quiz_id, $question_id, $score)
+    public function noMoreQuestion($quiz_id, $question_id, $score, $time)
     {
         $quiz = Quiz::find($quiz_id);
         $questionNb = intval($question_id);
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
+        $users = User::select('id', 'name', 'experience')->orderBy('experience', 'desc')->take(4)->get();
+        $pos = ["1er", "2ème", "3ème", '4ème'];
         $total = count($questionTotal);
         if($questionNb == $total){
             $user = User::find(Auth::user()->id);
             if($user){
-                $user->experience = $user->experience + $score + 200;
-                $user->save();
+                //$user->experience = $user->experience + $score + 200;
+                //$user->save();
                 $levelRequirement = [0, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
                 for($i = 0; $i < count($levelRequirement); $i++){
                     if($user->experience >= $levelRequirement[$i] && $user->experience < $levelRequirement[$i+1]){
@@ -81,29 +83,29 @@ class HomeController extends Controller
                         ];
                     }
                 }
-                $result = Score::create([
+                /*$result = Score::create([
                     'user_id' => $user->id,
                     'value' => $score,
-                ]);
+                ]);*/
             }
-            return view('game.end')->with(compact('quiz', 'score', 'total', 'user', 'level'));
+            return view('game.end')->with(compact('quiz', 'score', 'total', 'user', 'level', 'users', 'pos', 'time'));
         }
         else{
             return $questionNb;
         }
     }
 
-    public function game($quiz_id, $question_id, $score = 0)
+    public function game($quiz_id, $question_id, $score = 0, $time = 0)
     {
         $quiz = Quiz::find($quiz_id);
-        $next = $this->noMoreQuestion($quiz_id, $question_id, $score);
+        $next = $this->noMoreQuestion($quiz_id, $question_id, $score, $time);
         if(!is_int($next))
             return $next;
         $question = Question::where('quiz_id', $quiz_id)->get()[$next];
         $questionTotal = Question::where('quiz_id', $quiz_id)->get();
         $total = count($questionTotal);
         if($question){
-            return view('game.show')->with(compact('quiz', 'question', 'next', 'score', 'total'));
+            return view('game.show')->with(compact('quiz', 'question', 'next', 'score', 'time', 'total'));
         }
         else
             return view('home')->with(compact('quiz', 'question'));
@@ -126,9 +128,9 @@ class HomeController extends Controller
         $answer = intval($request->answer);
 
         if($question->right_answer === $answer)
-            $display = $this->game($quiz_id, $question_id, $request->score + 10);
+            $display = $this->game($quiz_id, $question_id, $request->score + 10, $request->time);
         else
-            $display = $this->game($quiz_id, $question_id, $request->score);
+            $display = $this->game($quiz_id, $question_id, $request->score, $request->time);
         return $display;
     }
 }

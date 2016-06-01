@@ -136,12 +136,16 @@ select {
     font-weight: 300; }
   #user #user-exp + small, #user-score #user-exp + small {
     display: block;
+    margin-bottom: 5%;
     font-style: italic;
-    font-size: 1em; }
+    font-size: 1em;
+    color: #9e9e9e; }
   #user #trophies .col-md-4, #user-score #trophies .col-md-4 {
     padding: 0 3%; }
   #user #points-mention, #user-score #points-mention {
     display: block;
-    font-style: italic; }
+    margin-bottom: 5%;
+    font-style: italic;
+    color: #9e9e9e; }
 
 /*# sourceMappingURL=app.css.map */

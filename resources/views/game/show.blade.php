@@ -63,6 +63,7 @@
                     --}}
                     {!! Form::open(array('url' => route('home.validation', [$quiz->id, $next + 1]), 'id' => 'userAnswer', 'method' => 'POST')) !!}
                     {!! Form::hidden('score', $score) !!}
+                    {!! Form::hidden('time', $time) !!}
                     <div class="row answer-row">
                         <div class="col-md-6">
                             {!! Form::radio('answer', 1, null, array('id' => 'first_answer',)) !!}
@@ -79,7 +80,6 @@
                                 <div id="test-circle">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row answer-row">

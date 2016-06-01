@@ -3,11 +3,15 @@ var timer = 15;     //en secondes
 function startTimer(duration) {
     var timer = duration,
         seconds;
+    //retrieve value of input time
+    var timerVal = $("input[name=time]").val();
     timerInterval = setInterval(function() {
         seconds = parseInt(timer % 60, 10);
         seconds = seconds < 10 ? "0" + seconds : seconds;
         //$("#timer").html(seconds);
         $(".timer").html(seconds);
+        //send value to input time (inform of how long does the player is on the quiz)
+        $("input[name=time]").val((parseInt(timerVal) + 15) - seconds);
         if (--timer < 0) {
             //uncomment for release
             document.getElementById("userAnswer").submit();

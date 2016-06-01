@@ -157,8 +157,10 @@ select{
   }
   #user-exp + small{
     display: block;
+    margin-bottom: 5%;
     font-style: italic;
     font-size: 1em;
+    color: gray + 30;
   }
   #trophies{
     .col-md-4{
@@ -167,6 +169,8 @@ select{
   }
   #points-mention{
     display: block;
+    margin-bottom: 5%;
     font-style: italic;
+    color: gray + 30;
   }
 }
