@@ -11,8 +11,8 @@ use App\Http\Requests;
 class QuizController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth', ['only' => ['index']]);
-        $this->middleware('isAdmin', ['except' => ['index']]);
+        //$this->middleware('auth', ['only' => ['index']]);
+        $this->middleware('isAdmin');
     }
     /**
      * Display a listing of the resource.

@@ -40,7 +40,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Accueil</a></li>
-                    <li><a href="{{ route('quiz.index') }}">Quiz</a></li>
+                    @if(isset(Auth::user()->is_admin) && Auth::user()->is_admin)
+                        <li><a href="{{ route('quiz.index') }}">Quiz</a></li>
+                    @endif
                     <li><a href="{{ route('home.score') }}">Score</a></li>
                     <li><a href="{{ route('home.week') }}">Week</a></li>
                 </ul>
