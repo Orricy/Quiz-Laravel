@@ -31,7 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $quiz = Quiz::orderby('created_at', 'desc')->first();
-        $question = Question::where('quiz_id', $quiz->id)->orderBy('id', 'asc')->take(1)->get();
+       // $question = Question::where('quiz_id', $quiz->id)->orderBy('id', 'asc')->take(1)->get();
         return view('home')->with(compact('quiz', 'question'));
     }
 
